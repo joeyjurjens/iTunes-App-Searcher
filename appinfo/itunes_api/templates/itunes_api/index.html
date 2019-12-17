@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>App Info Searcher for iOS</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>	
+</head>
+<body>
+
+	<style type="text/css">
+		.result img {
+			float: left;
+			margin-right: 1%;
+		}
+		.result p{
+			margin-bottom: 0;
+		}
+
+
+	</style>
+
+	<div class="container" style="width: 80%; text-align: center; margin-top: 10px">
+		<h4>App Info Searcher for iOS</h4>
+		<hr style="width:50%;">
+		<p>Gives you the details you would need if you'd post a hack on a forum or something.</p>
+		<form action="/" method="post">
+		  {% csrf_token %}
+		  <input type="text" name="search_term">
+		  <button type="submit">Search</button>
+		</form>
+	</div>
+
+	<div class="container result">
+		{% for result in results %}
+		<hr>
+		<img src="{{result.artworkUrl100}}">
+		<p>{{result.trackCensoredName}} v{{result.version}}</p>
+		<p>Developers: {{result.sellerName}}</p>
+		<p>{{ result.bundleId }}</p>
+		<p>iTunes Url: <a href="{{ result.artistViewUrl }}">{{ result.artistViewUrl }}</a></p>
+		{% endfor %}
+	</div>
+</body>
+</html>
